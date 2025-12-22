@@ -2,8 +2,11 @@ import torch
 import torch.nn as nn
 from torchsummary import summary
 
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 # 1. 定义数据
-x = torch.randn(10, 3)
+x = torch.randn(10, 3).to(device)
 
 # 2. 构建模型
 model = nn.Sequential(
@@ -14,6 +17,7 @@ model = nn.Sequential(
     nn.Linear(4, 2),
     nn.Softmax(dim=1)
 )
+model.to(device)
 
 
 # 3. 参数初始化
@@ -29,4 +33,4 @@ model.apply(init_params)
 y = model(x)
 print(y)
 
-summary(model, input_size=(3, ), batch_size=10, device='cpu')
+summary(model, input_size=(3, ), batch_size=10, device=device.type)
