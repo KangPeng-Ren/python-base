@@ -26,8 +26,8 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # 测试
 # 1. 定义输入数据
-x = torch.randn(10, 3)
-x.to(device)
+x = torch.randn(10, 3).to(device)
+# x.to('cuda')
 
 # 2. 创建神经网络模型
 model = Model()
@@ -61,4 +61,4 @@ print(state_dict)
 
 print('=========================================')
 print('查看模型架构和参数数量：')
-summary(model, input_size=(3,), batch_size=10, device='cpu')
+summary(model, input_size=(3,), batch_size=10, device=device.type)
